@@ -1,6 +1,8 @@
-import os  # biblioteca para manipular arquivos
-import numpy as np 
-import soundfile as sf  # biblioteca para manipular áudios (pip install pysoundfile)
+import os  # biblioteca para manipular os arquivos
+import wave # biblioteca para trabalhar com arquivos .wav
+import numpy as np # biblioteca para manipular os vetores/canais de áudio (pip install numpy)
+import soundfile as sf  # biblioteca para manipular os áudios (pip install pysoundfile)
+import matplotlib.pyplot as plt # biblioteca para plotar a função (pip install -U matplotlib)
 
 pasta = str(input("Digite o caminho completo da pasta que deseja manipular os arquivos de áudio: "))
 ### Comando que vai para a pasta destino onde estão os arquivos ###
@@ -31,3 +33,22 @@ for arquivo in os.listdir('.'):
 
     else:        
         print('O arquivo "%s" não é estereo!!'%arquivo)
+
+arquivo = str(input("Digite o nome do arquivo que deseja plotar no gráfico: "))
+### Para cada arquivo no diretório ###
+for arquivo in os.listdir('.'):
+    ### Seleciono e abro .wav o arquivo digitado em questão no modo somente leitura ###
+    musica = wave.open('%s'%arquivo,'r')
+    ### Leio todos os frames do áudio, transformando-os em strings ###
+    form_onda = musica.readframes(-1)
+    ### Transformo as strings lidas anteriormente em vetores ###
+    form_onda = np.fromstring(form_onda, 'Int16')
+    ### Obtenho a frequência de amostragem da música ###
+    fa = musica.getframerate()
+    ###  ###
+    tempo=np.linspace(0, len(form_onda)/fa, num=len(form_onda))
+    ### Faz a plotagem do primeiro gráfico, com o título indicado, em função do tempo ###
+    plt.figure(1)
+    plt.title('Gráfico: Forma de Onda')
+    plt.plot(tempo, form_onda)
+    plt.show()
