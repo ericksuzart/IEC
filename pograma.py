@@ -39,16 +39,22 @@ arquivo = str(input("Digite o nome do arquivo que deseja plotar no gráfico: "))
 for arquivo in os.listdir('.'):
     ### Seleciono e abro .wav o arquivo digitado em questão no modo somente leitura ###
     musica = wave.open('%s'%arquivo,'r')
-    ### Leio todos os frames do áudio, transformando-os em strings ###
+    ### Leio todos os frames (amostras) do áudio, transformando-os em strings ###
     form_onda = musica.readframes(-1)
     ### Transformo as strings lidas anteriormente em vetores ###
     form_onda = np.fromstring(form_onda, 'Int16')
     ### Obtenho a frequência de amostragem da música ###
     fa = musica.getframerate()
-    ###  ###
-    tempo=np.linspace(0, len(form_onda)/fa, num=len(form_onda))
-    ### Faz a plotagem do primeiro gráfico, com o título indicado, em função do tempo ###
+    ### Faço a divisão da quantidade total de amostras pela fa
+    ### para obter o tempo (em segundos) ###
+    tempo = np.linspace(0, len(form_onda)/fa, num=len(form_onda))
+    ### Afim de obter a amplitude com referência em tensão (-1 a +1V),
+    ### divido os níveis de quantização por (2^16)/2 ###
+    amplit = form_onda/32768
+    ### Faz a plotagem gráfico, com o título indicado, em função do tempo ###
     plt.figure(1)
-    plt.title('Gráfico: Forma de Onda')
-    plt.plot(tempo, form_onda)
+    plt.xlabel("Tempo")
+    plt.ylabel("Amplitude")
+    plt.title('Formas de onda do arquivo %s'%arquivo)
+    plt.plot(tempo, amplit)
     plt.show()
