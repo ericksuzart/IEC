@@ -46,10 +46,10 @@ for arquivo in os.listdir('.'):
     ### Obtenho a frequência de amostragem da música ###
     fa = musica.getframerate()
     ### Faço a divisão da quantidade total de amostras pela fa
-    ### para obter o tempo (em segundos) ###
+    # para obter o tempo (em segundos) ###
     tempo = np.linspace(0, len(form_onda)/fa, num=len(form_onda))
     ### Afim de obter a amplitude com referência em tensão (-1 a +1V),
-    ### divido os níveis de quantização por (2^16)/2 ###
+    # divido os níveis de quantização por (2^16)/2 ###
     amplit = form_onda/32768
     ### Faz a plotagem gráfico, com o título indicado, em função do tempo ###
     plt.figure(1)
