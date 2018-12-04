@@ -32,20 +32,20 @@ for arquivo in diretorio:
 
     ### Se não: ###
     else:
-        ### Digo que o arquivo não é estereo ###
-        print('O arquivo "%s" não é estereo!!'%arquivo)
+        ### Digo que o arquivo não é estéreo ###
+        print('O arquivo "%s" não é estéreo!!'%arquivo)
 
-    ### Se não, se o nome do arquivo for diferente do padrão: ###
+    ### Caso o nome do arquivo seja diferente do padrão: ###
     if arquivo != '%d.wav'%num:        
         ### Renomeio o arquivo original no padrão "n.wav", onde "n" é um inteiro ###
         os.rename('%s'%arquivo,'%d.wav'%num)
-        ### Digo que o arquivo(e o novo nome dele) não é estereo ###
+        ### Digo que o arquivo (e o novo nome dele) não é estéreo ###
         print('O arquivo "%s" foi renomeado para %d.wav"'%(arquivo, num))
 
     num +=1
 
 arquivo = str(input("Digite o nome do arquivo que deseja plotar no gráfico: "))
-### Para cada arquivo no diretório(após a modificação) ###
+### Para cada arquivo no diretório (após a modificação) ###
 for arq in os.listdir('.'):
     if arquivo == arq:
         ### Seleciono e abro o arquivo .wav digitado em questão no modo somente leitura ###
