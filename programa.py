@@ -25,7 +25,7 @@ for arquivo in diretorio:
             ### Adiciono um valor correspondente a média dos dois valores na lista vazia ###
             data_list.append((amostra[0] + amostra[1])/2)
 
-        ### Transformo a lista em um vetor(objeto) através da biblioteca "numpy" ###
+        ### Transformo a lista em um vetor (objeto) através da biblioteca "numpy" ###
         data_mono = np.array(data_list)
         ### Edito o arquivo transformando-o em "mono" ###
         sf.write('%s'%arquivo, data_mono,samplerate)
@@ -48,22 +48,21 @@ arquivo = str(input("Digite o nome do arquivo que deseja plotar no gráfico: "))
 ### Para cada arquivo no diretório(após a modificação) ###
 for arq in os.listdir('.'):
     if arquivo == arq:
-        ### Seleciono e abro .wav o arquivo digitado em questão no modo somente leitura ###
+        ### Seleciono e abro o arquivo .wav digitado em questão no modo somente leitura ###
         musica = wave.open('%s'%arq,'r')
         ### Leio todos os frames (amostras) do áudio, transformando-os em strings ###
         form_onda = musica.readframes(-1)
-        ### Transformo as strings lidas anteriormente em vetores ###
+        ### Inicializo um vetor através de uma string ###
         form_onda = np.fromstring(form_onda, 'Int16')
         ### Obtenho a frequência de amostragem da música ###
         fa = musica.getframerate()
         ### Faço a divisão da quantidade total de amostras pela fa
-        ### para obter o tempo (em segundos) ###
+        # para obter o tempo (em segundos) ###
         tempo = np.linspace(0, len(form_onda)/fa, num=len(form_onda))
         ### Afim de obter a amplitude com referência em tensão (-1 a +1V),
-        ### divido os níveis de quantização por (2^16)/2 ###
+        # divido os níveis de quantização por (2^16)/2 ###
         amplit = form_onda/32768
-        ### Faz a plotagem gráfico, com o título indicado, em função do tempo ###
-        plt.figure(1)
+        ### Faço a plotagem gráfico da amplitude em função do tempo ###
         plt.xlabel("Tempo")
         plt.ylabel("Amplitude")
         plt.title('Formas de onda do arquivo %s'%arq)
