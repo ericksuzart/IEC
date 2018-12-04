@@ -30,18 +30,18 @@ for arquivo in diretorio:
         ### Edito o arquivo transformando-o em "mono" ###
         sf.write('%s'%arquivo, data_mono,samplerate)
 
-    ### Se não, se o nome do arquivo for diferente do padrão: ###
-    elif arquivo != '%d.wav'%num:        
-        ### Renomeio o arquivo original no padrão "n.wav", onde "n" é um inteiro ###
-        os.rename('%s'%arquivo,'%d.wav'%num)
-        ### Digo que o arquivo(e o novo nome dele) não é estereo ###
-        print('O arquivo "%s"("Novo nome: %d.wav") não é estereo!!'%(arquivo, num))
-    
     ### Se não: ###
     else:
         ### Digo que o arquivo não é estereo ###
         print('O arquivo "%s" não é estereo!!'%arquivo)
-        
+
+    ### Se não, se o nome do arquivo for diferente do padrão: ###
+    if arquivo != '%d.wav'%num:        
+        ### Renomeio o arquivo original no padrão "n.wav", onde "n" é um inteiro ###
+        os.rename('%s'%arquivo,'%d.wav'%num)
+        ### Digo que o arquivo(e o novo nome dele) não é estereo ###
+        print('O arquivo "%s" foi renomeado para %d.wav"'%(arquivo, num))
+
     num +=1
 
 arquivo = str(input("Digite o nome do arquivo que deseja plotar no gráfico: "))
