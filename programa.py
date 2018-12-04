@@ -49,8 +49,7 @@ arquivo = str(input("Digite o nome do arquivo que deseja plotar no gráfico: "))
     ### Afim de obter a amplitude com referência em tensão (-1 a +1V),
     # divido os níveis de quantização por (2^16)/2 ###
     amplit = form_onda/32768
-    ### Faz a plotagem gráfico, com o título indicado, em função do tempo ###
-    plt.figure(1)
+    ### Faz a plotagem do gráfico, com o título indicado, em função do tempo ###
     plt.xlabel("Tempo")
     plt.ylabel("Amplitude")
     plt.title('Formas de onda do arquivo %s'%arquivo)
