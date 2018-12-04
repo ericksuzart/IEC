@@ -35,9 +35,7 @@ for arquivo in os.listdir('.'):
         print('O arquivo "%s" não é estereo!!'%arquivo)
 
 arquivo = str(input("Digite o nome do arquivo que deseja plotar no gráfico: "))
-### Para cada arquivo no diretório ###
-for arquivo in os.listdir('.'):
-    ### Seleciono e abro .wav o arquivo digitado em questão no modo somente leitura ###
+### Seleciono e abro .wav o arquivo digitado em questão no modo somente leitura ###
     musica = wave.open('%s'%arquivo,'r')
     ### Leio todos os frames (amostras) do áudio, transformando-os em strings ###
     form_onda = musica.readframes(-1)
