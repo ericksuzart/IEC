@@ -45,7 +45,7 @@ for arquivo in diretorio:
     num +=1
 
 arquivo = str(input("Digite o nome do arquivo que deseja plotar no gráfico: "))
-### Para cada arquivo no diretório ###
+### Para cada arquivo no diretório(após a modificação) ###
 for arq in os.listdir('.'):
     if arquivo == arq:
         ### Seleciono e abro .wav o arquivo digitado em questão no modo somente leitura ###
