@@ -8,6 +8,7 @@ from tkinter import filedialog
 import tkinter.font as tf
 from pygame import mixer #biblioteca para o reprodutor (pip install pygame)
 import click # biblioteca para sim ou não (pip install click)
+from pydub import AudioSegment # biblioteca para manipular mp3 (pip install pydub e http://www.ffmpeg.org/download.html)
 
 class Application:
     ### Inicializa o mixer do pygame ###
@@ -17,11 +18,26 @@ class Application:
         ### Comando que vai para a pasta destino onde estão os arquivos ###
         os.chdir(diretorio)
         ### Comando que lista os arquivos que estão no diretório ###
-        diretorio = os.listdir('.')
+        diretorio_L = os.listdir('.')
         num = 1
 
         ### Para cada arquivo no diretório ###
-        for arquivo in diretorio:
+        for arquivo in diretorio_L:
+            ### se o arquivo tiver o final de seu nome igual a "mp3" ###
+            if arquivo[-1] =='3' and arquivo[-2] == 'p' and arquivo[-3] == 'm':
+                ### crio um novo arquivo com o mesmo nome do original porém no formato wav ###
+                print('O arquivo "%s" está sendo convertido para ".wav"...(aguarde!)'%arquivo)
+                src = "%s/%s"%(diretorio, arquivo)
+                dst = "%s/%s.wav"%(diretorio, arquivo)
+                sound = AudioSegment.from_mp3(src)
+                sound.export(dst, format="wav")
+                ### removo o arquivo original (mp3) ###
+                os.remove(arquivo)
+                ### a variável que representa o arquivo muda ###
+                print('O arquivo "%s" foi convertido como: '%arquivo, end='')
+                arquivo = "%s.wav"%arquivo
+                print(arquivo)
+
             ### Extraio um vetor contendo os dados e a taxa de amostragem ###
             dados, samplerate = sf.read('%s'%arquivo)
             ### Crio uma lista vazia ###
