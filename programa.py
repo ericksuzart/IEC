@@ -71,7 +71,7 @@ class Application:
                 amplit = form_onda/32768
                 ### Pergunto se quero que a música seja tocada
                 # se sim, toco a música ###
-                if input('Deseja tocar a música?\n').lower()[0]=='s': 
+                if input('Deseja tocar a música? (Sim/Não)\n').lower()[0]=='s': 
                     mixer.music.load('%s'%arq)
                     mixer.music.play()
                 ### se não, apenas carrego ela para ser tocada no player futuramente ###
