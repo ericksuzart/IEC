@@ -100,14 +100,23 @@ class Application:
     menu = Menu(root)
     root.config(menu = menu)
     menuPrinc = Menu(menu)
+    menuRepro = Menu(menu)
+    
     menu.add_cascade(label = "Arquivo", menu = menuPrinc)
     menuPrinc.add_command(label = "Selecionar pasta", command = selec_button)
     menuPrinc.add_separator()
     menuPrinc.add_command(label = "Fechar", command = root.destroy)
-    ### Crio o rótulo para escolher o diretório ###
+    menu.add_cascade(label = "Reproduzir", menu = menuRepro)
+    menuRepro.add_command(label = "Reproduzir", command = mixer.music.play)
+    menuRepro.add_command(label = "Pausar", command = mixer.music.pause)
+    menuRepro.add_command(label = "Resumir", command = mixer.music.unpause)
+    menuRepro.add_command(label = "Parar", command = mixer.music.stop)
     
+    ### Crio o rótulo para escolher o diretório ###
     rotulo = Label(master = root, text = "Por favor, escolha a pasta que deseja manipular os arquivos de áudio")
     rotulo.pack(anchor = CENTER)
+    
+    ### Crio botões no layout da GUI para o mini-player ### 
     play = Button(text = "TOCAR", command = mixer.music.play, font = times12)
     play.place(x = 200, y = 25)
     resume = Button(text = "►", command = mixer.music.unpause, font = times12)
@@ -116,6 +125,7 @@ class Application:
     pause.place(x = 214, y = 65)
     stop = Button(text = " ■ ", command = mixer.music.stop, font = times13)
     stop.place(x = 255, y = 65)
+    
     ### Botão para reiniciar o shell do Python ###
     restart = Button(master = root, text = "Deu ruim? Clique aqui", command = restart, font = times12)
     restart.place(x = 158, y = 100)
