@@ -5,8 +5,12 @@ import soundfile as sf # biblioteca para manipular os áudios (pip install pysou
 import matplotlib.pyplot as plt # biblioteca para plotar a função (pip install -U matplotlib)
 from tkinter import * # biblioteca para a interface gráfica
 from tkinter import filedialog
+from pygame import mixer #biblioteca para o reprodutor (pip install pygame)
+import click # biblioteca para sim ou não (pip install click)
 
 class Application:
+    ### Inicializa o mixer do pygame ###
+    mixer.init(44100)
     def selec_button():
         diretorio = filedialog.askdirectory()
         ### Comando que vai para a pasta destino onde estão os arquivos ###
@@ -64,12 +68,20 @@ class Application:
                 ### Afim de obter a amplitude com referência em tensão (-1 a +1V),
                 # divido os níveis de quantização por (2^16)/2 ###
                 amplit = form_onda/32768
+                ### Pergunto se quero que a música seja tocada
+                # se sim, toco a música ###
+                if input('Deseja tocar a música?\n').lower()[0]=='s': 
+                    mixer.music.load('%s'%arq)
+                    mixer.music.play()
+                ### se não, apenas carrego ela para ser tocada no player futuramente ###
+                else:
+                    mixer.music.load('%s'%arq)
                 ### Faço a plotagem gráfico da amplitude em função do tempo ###
                 plt.xlabel("Tempo")
                 plt.ylabel("Amplitude")
                 plt.title('Formas de onda do arquivo %s'%arq)
                 plt.plot(tempo, amplit)
-                plt.show()
+                plt.show()             
                 
     ### Rotina para reiniciar o shell do Python ###
     def restart():
@@ -79,16 +91,23 @@ class Application:
 
     ### Rotina do Tkinter para os botões e os rótulos ###
     root = Tk()
+    root.geometry("480x160")
+    ### Rotina de Menu para a interface ###
+    menu = Menu(root)
+    root.config(menu = menu)
+    menuPrinc = Menu(menu)
+    menu.add_cascade(label = "Arquivo", menu = menuPrinc)
+    menuPrinc.add_command(label = "Selecionar pasta", command = selec_button)
+    menuPrinc.add_separator()
+    menuPrinc.add_command(label = "Fechar", command = root.destroy)
     ### Crio o rótulo para escolher o diretório ###
-    rotulo = Label(master = root, text = "Selecione a pasta que deseja manipular os arquivos de áudio")
-    rotulo.grid(padx = 0, pady = 0)
-    ### Crio o botão que irá servir para acessar o diretório a ser manipulado ###
-    selec = Button(text = "Selecionar pasta", command = selec_button)
-    selec.grid(padx = 0, pady = 10)
-    ### Botão para fechar a GUI ###
-    quit = Button(text = "Fechar", command = root.destroy)
-    quit.grid(padx = 0, pady = 10)
+    rotulo = Label(master = root, text = "Por favor, escolha a pasta que deseja manipular os arquivos de áudio")
+    rotulo.pack(anchor = CENTER)
+    play = Button(text = "Reproduzir", command = mixer.music.play)
+    play.place(x = 50, y =  30)
+    stop = Button(text = "Parar", command = mixer.music.stop)
+    stop.place(x = 380, y = 30)
     ### Botão para reiniciar o shell do Python ###
     restart = Button(master = root, text = "Deu ruim? Clique aqui", command = restart)
-    restart.grid(padx = 150, pady = 10)
+    restart.place(x = 150, y = 100)
     root.mainloop()
