@@ -79,13 +79,16 @@ class Application:
 
     ### Rotina do Tkinter para os botões e os rótulos ###
     root = Tk()
-    label1 = Label(master = root, text = "Selecione a pasta que deseja manipular os arquivos de áudio")
-    label1.grid(padx = 0, pady = 0)
-    button1 = Button(text = "Selecionar pasta", command = selec_button)
-    button1.grid(padx = 0, pady = 10)
+    ### Crio o rótulo para escolher o diretório ###
+    rotulo = Label(master = root, text = "Selecione a pasta que deseja manipular os arquivos de áudio")
+    rotulo.grid(padx = 0, pady = 0)
+    ### Crio o botão que irá servir para acessar o diretório a ser manipulado ###
+    selec = Button(text = "Selecionar pasta", command = selec_button)
+    selec.grid(padx = 0, pady = 10)
+    ### Botão para fechar a GUI ###
     quit = Button(text = "Fechar", command = root.destroy)
     quit.grid(padx = 0, pady = 10)
+    ### Botão para reiniciar o shell do Python ###
     restart = Button(master = root, text = "Deu ruim? Clique aqui", command = restart)
     restart.grid(padx = 150, pady = 10)
-
     root.mainloop()
