@@ -5,6 +5,7 @@ import soundfile as sf # biblioteca para manipular os áudios (pip install pysou
 import matplotlib.pyplot as plt # biblioteca para plotar a função (pip install -U matplotlib)
 from tkinter import * # biblioteca para a interface gráfica
 from tkinter import filedialog
+import tkinter.font as tf
 from pygame import mixer #biblioteca para o reprodutor (pip install pygame)
 import click # biblioteca para sim ou não (pip install click)
 
@@ -92,6 +93,9 @@ class Application:
     ### Rotina do Tkinter para os botões e os rótulos ###
     root = Tk()
     root.geometry("480x160")
+    times12 = tf.Font(family="Times New Roman", size=12)
+    times13 = tf.Font(family="Times New Roman", size=13, weight='bold')
+    
     ### Rotina de Menu para a interface ###
     menu = Menu(root)
     root.config(menu = menu)
@@ -101,13 +105,18 @@ class Application:
     menuPrinc.add_separator()
     menuPrinc.add_command(label = "Fechar", command = root.destroy)
     ### Crio o rótulo para escolher o diretório ###
+    
     rotulo = Label(master = root, text = "Por favor, escolha a pasta que deseja manipular os arquivos de áudio")
     rotulo.pack(anchor = CENTER)
-    play = Button(text = "Reproduzir", command = mixer.music.play)
-    play.place(x = 50, y =  30)
-    stop = Button(text = "Parar", command = mixer.music.stop)
-    stop.place(x = 380, y = 30)
+    play = Button(text = "TOCAR", command = mixer.music.play, font = times12)
+    play.place(x = 200, y = 25)
+    resume = Button(text = "►", command = mixer.music.unpause, font = times12)
+    resume.place(x = 175, y = 65)
+    pause = Button(text = " | | ", command = mixer.music.pause, font = times13)
+    pause.place(x = 214, y = 65)
+    stop = Button(text = " ■ ", command = mixer.music.stop, font = times13)
+    stop.place(x = 255, y = 65)
     ### Botão para reiniciar o shell do Python ###
-    restart = Button(master = root, text = "Deu ruim? Clique aqui", command = restart)
-    restart.place(x = 150, y = 100)
+    restart = Button(master = root, text = "Deu ruim? Clique aqui", command = restart, font = times12)
+    restart.place(x = 158, y = 100)
     root.mainloop()
